@@ -1,0 +1,37 @@
+---
+# Path to virtualenv in which to install shade and its dependencies.
+os_networks_venv:
+
+# Authentication type compatible with the 'os_network' Ansible module's
+# auth_type argument.
+os_networks_auth_type:
+
+# Authentication parameters compatible with the 'os_network' Ansible module's
+# auth argument.
+os_networks_auth: {}
+
+# List of networks to create. Each item should be a dict containing the
+# following items:
+# - 'name': Name of the neutron network.
+# - 'provider_network_type': Provider type of the neutron network.
+# - 'provider_physical_network': Provider physical network of the neutron network.
+# - 'provider_segmentation_id': Provider segmentation ID of the neutron network.
+# - 'shared': Whether the neutron network is shared.
+# - 'external': Whether the neutron network is external.
+# - 'subnets': A list of subnets to create in this network. Each item should
+#   be a dict containing the following items:
+#     - 'name: Name of the neutron subnet.
+#     - 'cidr': CIDR representation of the neutron subnet's IP network.
+#     - 'gateway_ip': IP address of the neutron subnet's gateway.
+#     - 'allocation_pool_start': Start of the neutron subnet's IP allocation
+#       pool.
+#     - 'allocation_pool_end': End of the neutron subnet's IP allocation pool.
+os_networks: []
+
+# List of routers to create. Each item should be a dict containing the
+# following items:
+# - 'name': Name of the neutron router.
+# - 'interfaces': List of names of subnets to attach to the router
+#   internal interface.
+# - 'network': Unique name or ID of the external gateway network.
+os_networks_routers: []
