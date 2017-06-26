@@ -15,8 +15,11 @@
     provider_segmentation_id: "{{ item.provider_segmentation_id | default(omit) }}"
     shared: "{{ item.shared | default(omit) }}"
     external: "{{ item.external | default(omit) }}"
+    project: "{{ item.project | default(omit) }}"
     state: present
   with_items: "{{ os_networks }}"
+  environment:
+    OS_IDENTITY_API_VERSION: 3
 
 - name: Ensure subnet is registered with neutron
   os_subnet:
@@ -41,8 +44,11 @@
     name: "{{ item.name }}"
     interfaces: "{{ item.interfaces or omit }}"
     network: "{{ item.network or omit }}"
+    project: "{{ item.project or omit }}"
     state: present
   with_items: "{{ os_networks_routers }}"
+  environment:
+    OS_IDENTITY_API_VERSION: 3
 
 # This variable is unset before we set it, and it does not appear to be
 # possible to unset a variable in Ansible.

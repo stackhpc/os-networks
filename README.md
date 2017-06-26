@@ -30,6 +30,7 @@ dict containing the following items:
 - `provider_segmentation_id`: Provider segmentation ID of the neutron network.
 - `shared`: Whether the neutron network is shared.
 - `external`: Whether the neutron network is external.
+- `project`: Optionally create this network for a project other than admin.
 - `subnets`: A list of subnets to create in this network. Each item should
    be a dict containing the following items:
    - `name`: Name of the neutron subnet.
@@ -46,6 +47,7 @@ dict containing the following items:
 - `interfaces`: List of names of subnets to attach to the router
   internal interface.
 - `network`: Unique name or ID of the external gateway network.
+- `project`: Optionally create this router for a project other than admin.
 
 Dependencies
 ------------
