@@ -42,9 +42,9 @@
     auth_type: "{{ os_networks_auth_type }}"
     auth: "{{ os_networks_auth }}"
     name: "{{ item.name }}"
-    interfaces: "{{ item.interfaces or omit }}"
-    network: "{{ item.network or omit }}"
-    project: "{{ item.project or omit }}"
+    interfaces: "{{ item.interfaces | default(omit) }}"
+    network: "{{ item.network | default(omit) }}"
+    project: "{{ item.project | default(omit) }}"
     state: present
   with_items: "{{ os_networks_routers }}"
   environment:
