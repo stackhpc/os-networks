@@ -39,6 +39,10 @@ dict containing the following items:
    - `allocation_pool_start`: Start of the neutron subnet's IP allocation
      pool.
    - `allocation_pool_end`: End of the neutron subnet's IP allocation pool.
+   - `host_routes`: A list of classless static routes to supply to hosts
+     connected to this subnet. A list of dicts of `destination`
+     (destination network in CIDR encoding) and `nexthop`
+     (router IP on this subnet) must be supplied.
 
 `os_networks_routers` is a list of routers to create. Each item should be a
 dict containing the following items:
@@ -58,6 +62,8 @@ Example Playbook
 ----------------
 
 The following playbook registers a neutron network, subnet and router.
+A classless static route is defined to access another subnet through a
+different gateway.
 
     ---
     - name: Ensure networks, subnets and routers are registered
@@ -84,6 +90,9 @@ The following playbook registers a neutron network, subnet and router.
                   gateway_ip: 10.0.0.1
                   allocation_pool_start: 10.0.0.2
                   allocation_pool_end: 10.0.0.254
+                  host_routes:
+                    - destination: 10.0.1.0/24
+                      nexthop: 10.0.0.254
           os_networks_routers:
             - name: router1
               interfaces:
