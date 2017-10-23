@@ -32,6 +32,7 @@
     no_gateway_ip: "{{ not item.1.gateway_ip | default(omit) }}"
     allocation_pool_start: "{{ item.1.allocation_pool_start | default(omit) }}"
     allocation_pool_end: "{{ item.1.allocation_pool_end | default(omit) }}"
+    host_routes: "{{ item.1.host_routes | default(omit) }}"
     state: present
   with_subelements:
     - "{{ os_networks }}"

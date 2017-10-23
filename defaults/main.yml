@@ -26,6 +26,8 @@ os_networks_auth: {}
 #     - 'allocation_pool_start': Start of the neutron subnet's IP allocation
 #       pool.
 #     - 'allocation_pool_end': End of the neutron subnet's IP allocation pool.
+#     - 'host_routes': list of dicts of destination and nexthop for classless 
+#       static routes to supply to hosts connected to this subnet.
 os_networks: []
 
 # List of routers to create. Each item should be a dict containing the
