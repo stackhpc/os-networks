@@ -29,7 +29,7 @@
     network_name: "{{ item.0.name }}"
     cidr: "{{ item.1.cidr }}"
     gateway_ip: "{{ item.1.gateway_ip | default(omit) }}"
-    no_gateway_ip: "{{ not item.1.gateway_ip | default(omit) }}"
+    no_gateway_ip: "{{ item.1.gateway_ip | default | ternary(omit, True) }}"
     allocation_pool_start: "{{ item.1.allocation_pool_start | default(omit) }}"
     allocation_pool_end: "{{ item.1.allocation_pool_end | default(omit) }}"
     host_routes: "{{ item.1.host_routes | default(omit) }}"
