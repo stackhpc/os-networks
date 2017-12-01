@@ -16,7 +16,7 @@
     shared: "{{ item.shared | default(omit) }}"
     external: "{{ item.external | default(omit) }}"
     project: "{{ item.project | default(omit) }}"
-    state: present
+    state: "{{ item.state | default(omit) }}"
   with_items: "{{ os_networks }}"
   environment:
     OS_IDENTITY_API_VERSION: 3
@@ -29,11 +29,11 @@
     network_name: "{{ item.0.name }}"
     cidr: "{{ item.1.cidr }}"
     gateway_ip: "{{ item.1.gateway_ip | default(omit) }}"
-    no_gateway_ip: "{{ not item.1.gateway_ip | default(omit) }}"
+    no_gateway_ip: "{{ item.1.gateway_ip | default | ternary(omit, True) }}"
     allocation_pool_start: "{{ item.1.allocation_pool_start | default(omit) }}"
     allocation_pool_end: "{{ item.1.allocation_pool_end | default(omit) }}"
     host_routes: "{{ item.1.host_routes | default(omit) }}"
-    state: present
+    state: "{{ item.1.state | default(omit) }}"
   with_subelements:
     - "{{ os_networks }}"
     - subnets
@@ -46,7 +46,7 @@
     interfaces: "{{ item.interfaces | default(omit) }}"
     network: "{{ item.network | default(omit) }}"
     project: "{{ item.project | default(omit) }}"
-    state: present
+    state: "{{ item.state | default(omit) }}"
   with_items: "{{ os_networks_routers }}"
   environment:
     OS_IDENTITY_API_VERSION: 3
