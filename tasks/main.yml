@@ -1,4 +1,8 @@
 ---
+- name: Set a fact about the Ansible python interpreter
+  set_fact:
+    old_ansible_python_interpreter: "{{ ansible_python_interpreter | default('/usr/bin/python') }}"
+
 # Note that setting this via a play or task variable seems to not
 # evaluate the Jinja variable reference, so we use set_fact.
 - name: Update the Ansible python interpreter fact to point to the virtualenv
@@ -55,4 +59,4 @@
 # possible to unset a variable in Ansible.
 - name: Set a fact to reset the Ansible python interpreter
   set_fact:
-    ansible_python_interpreter: /usr/bin/python
+    ansible_python_interpreter: "{{ old_ansible_python_interpreter }}"
