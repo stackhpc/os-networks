@@ -24,6 +24,7 @@ os_networks_auth: {}
 #   be a dict containing the following items:
 #     - 'name: Name of the neutron subnet.
 #     - 'cidr': CIDR representation of the neutron subnet's IP network.
+#     - 'dns_nameservers': A list of DNS nameservers for the subnet.
 #     - 'gateway_ip': IP address of the neutron subnet's gateway.
 #     - 'allocation_pool_start': Start of the neutron subnet's IP allocation
 #       pool.
