@@ -38,6 +38,9 @@
     allocation_pool_start: "{{ item.1.allocation_pool_start | default(omit) }}"
     allocation_pool_end: "{{ item.1.allocation_pool_end | default(omit) }}"
     host_routes: "{{ item.1.host_routes | default(omit) }}"
+    ip_version: "{{ item.1.ip_version | default(omit) }}"
+    ipv6_address_mode: "{{ item.1.ipv6_address_mode | default(omit) }}"
+    ipv6_ra_mode: "{{ item.1.ipv6_ra_mode | default(omit) }}"
     project: "{{ item.1.project | default(omit) }}"
     state: "{{ item.1.state | default(omit) }}"
   with_subelements:

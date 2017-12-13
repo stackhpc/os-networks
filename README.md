@@ -46,6 +46,9 @@ dict containing the following items:
      connected to this subnet. A list of dicts of `destination`
      (destination network in CIDR encoding) and `nexthop`
      (router IP on this subnet) must be supplied.
+   - `ip_version`: Optional IP version for the subnet.
+   - `ipv6_address_mode`: Optional IPv6 address mode for the subnet.
+   - `ipv6_ra_mode`: Optional IPv6 router advertisement mode for the subnet.
    - `project`: Optionally create this subnet for a project other than the
      authenticating project.
    - `state`: Optional state of the subnet, default is `present`.

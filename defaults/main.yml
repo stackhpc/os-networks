@@ -31,6 +31,9 @@ os_networks_auth: {}
 #     - 'allocation_pool_end': End of the neutron subnet's IP allocation pool.
 #     - 'host_routes': list of dicts of destination and nexthop for classless 
 #       static routes to supply to hosts connected to this subnet.
+#     - 'ip_version': Optional IP version for the subnet.
+#     - 'ipv6_address_mode': Optional IPv6 address mode for the subnet.
+#     - 'ipv6_ra_mode': Optional IPv6 router advertisement mode for the subnet.
 #     - 'project': Optional project in which to register the subnet.
 #     - 'state': Optional state of the subnet, default is 'present'.
 os_networks: []
