@@ -37,10 +37,13 @@
     allocation_pool_start: "{{ item.1.allocation_pool_start | default(omit) }}"
     allocation_pool_end: "{{ item.1.allocation_pool_end | default(omit) }}"
     host_routes: "{{ item.1.host_routes | default(omit) }}"
+    project: "{{ item.1.project | default(omit) }}"
     state: "{{ item.1.state | default(omit) }}"
   with_subelements:
     - "{{ os_networks }}"
     - subnets
+  environment:
+    OS_IDENTITY_API_VERSION: 3
 
 - name: Ensure router is registered with neutron
   os_router:

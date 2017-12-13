@@ -18,6 +18,7 @@ os_networks_auth: {}
 # - 'provider_segmentation_id': Provider segmentation ID of the neutron network.
 # - 'shared': Whether the neutron network is shared.
 # - 'external': Whether the neutron network is external.
+# - 'project': Optional project in which to register the network.
 # - 'state': Optional state of the network, default is 'present'.
 # - 'subnets': A list of subnets to create in this network. Each item should
 #   be a dict containing the following items:
@@ -29,6 +30,7 @@ os_networks_auth: {}
 #     - 'allocation_pool_end': End of the neutron subnet's IP allocation pool.
 #     - 'host_routes': list of dicts of destination and nexthop for classless 
 #       static routes to supply to hosts connected to this subnet.
+#     - 'project': Optional project in which to register the subnet.
 #     - 'state': Optional state of the subnet, default is 'present'.
 os_networks: []
 
@@ -38,5 +40,6 @@ os_networks: []
 # - 'interfaces': List of names of subnets to attach to the router
 #   internal interface.
 # - 'network': Unique name or ID of the external gateway network.
+# - 'project': Optional project in which to register the router.
 # - 'state': Optional state of the router, default is 'present'.
 os_networks_routers: []
