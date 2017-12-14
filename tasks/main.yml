@@ -32,15 +32,22 @@
     name: "{{ item.1.name }}"
     network_name: "{{ item.0.name }}"
     cidr: "{{ item.1.cidr }}"
+    dns_nameservers: "{{ item.1.dns_nameservers | default(omit) }}"
     gateway_ip: "{{ item.1.gateway_ip | default(omit) }}"
     no_gateway_ip: "{{ item.1.gateway_ip | default | ternary(omit, True) }}"
     allocation_pool_start: "{{ item.1.allocation_pool_start | default(omit) }}"
     allocation_pool_end: "{{ item.1.allocation_pool_end | default(omit) }}"
     host_routes: "{{ item.1.host_routes | default(omit) }}"
+    ip_version: "{{ item.1.ip_version | default(omit) }}"
+    ipv6_address_mode: "{{ item.1.ipv6_address_mode | default(omit) }}"
+    ipv6_ra_mode: "{{ item.1.ipv6_ra_mode | default(omit) }}"
+    project: "{{ item.1.project | default(omit) }}"
     state: "{{ item.1.state | default(omit) }}"
   with_subelements:
     - "{{ os_networks }}"
     - subnets
+  environment:
+    OS_IDENTITY_API_VERSION: 3
 
 - name: Ensure router is registered with neutron
   os_router:

@@ -30,12 +30,14 @@ dict containing the following items:
 - `provider_segmentation_id`: Provider segmentation ID of the neutron network.
 - `shared`: Whether the neutron network is shared.
 - `external`: Whether the neutron network is external.
-- `project`: Optionally create this network for a project other than admin.
+- `project`: Optionally create this network for a project other than the
+  authenticating project.
 - `state`: Optional state of the network, default is `present`.
 - `subnets`: A list of subnets to create in this network. Each item should
    be a dict containing the following items:
    - `name`: Name of the neutron subnet.
    - `cidr`: CIDR representation of the neutron subnet's IP network.
+   - `dns_nameservers`: A list of DNS nameservers for the subnet.
    - `gateway_ip`: IP address of the neutron subnet's gateway.
    - `allocation_pool_start`: Start of the neutron subnet's IP allocation
      pool.
@@ -44,6 +46,11 @@ dict containing the following items:
      connected to this subnet. A list of dicts of `destination`
      (destination network in CIDR encoding) and `nexthop`
      (router IP on this subnet) must be supplied.
+   - `ip_version`: Optional IP version for the subnet.
+   - `ipv6_address_mode`: Optional IPv6 address mode for the subnet.
+   - `ipv6_ra_mode`: Optional IPv6 router advertisement mode for the subnet.
+   - `project`: Optionally create this subnet for a project other than the
+     authenticating project.
    - `state`: Optional state of the subnet, default is `present`.
 
 `os_networks_routers` is a list of routers to create. Each item should be a
@@ -53,7 +60,8 @@ dict containing the following items:
 - `interfaces`: List of names of subnets to attach to the router
   internal interface.
 - `network`: Unique name or ID of the external gateway network.
-- `project`: Optionally create this router for a project other than admin.
+- `project`: Optionally create this router for a project other than the
+  authenticating project.
 - `state`: Optional state of the router, default is `present`.
 
 Dependencies
