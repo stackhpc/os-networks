@@ -68,6 +68,7 @@
     auth: "{{ os_networks_auth }}"
     name: "{{ item.name }}"
     description: "{{ item.description | default(omit) }}"
+    project: "{{ item.project | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
   with_items: "{{ os_networks_security_groups }}"
   environment:
@@ -81,6 +82,7 @@
     ethertype: "{{ item.1.ethertype | default(omit) }}"
     port_range_min: "{{ item.1.port_range_min | default(omit) }}"
     port_range_max: "{{ item.1.port_range_max | default(omit) }}"
+    project: "{{ item.0.project | default(omit) }}"
     protocol: "{{ item.1.protocol | default(omit) }}"
     remote_group: "{{ item.1.remote_group | default(omit) }}"
     remote_ip_prefix: "{{ item.1.remote_ip_prefix | default(omit) }}"

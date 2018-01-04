@@ -69,6 +69,7 @@ List of security groups to create. Each item should be a dict containing the
 following items:
 - `name`: Name of the security group.
 - `description`: Optional description of the security group.
+- `project`: Optional project in which to register the security group.
 - `state`: Optional state of the security group, default is `present`.
 - `rules`: Optional list of rules to add to the security group. Each item
   should be a dict containing the following items:

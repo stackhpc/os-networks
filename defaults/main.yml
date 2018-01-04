@@ -53,6 +53,7 @@ os_networks_routers: []
 # - 'name': Name of the security group.
 # - 'description': Optional description of the security group.
 # - 'state': Optional state of the security group, default is 'present'.
+# - 'project': Optional project in which to register the security group.
 # - 'rules': Optional list of rules to add to the security group. Each item
 #   should be a dict containing the following items:
 #   - 'direction': Optional direction of the rule, default is 'ingress'.
