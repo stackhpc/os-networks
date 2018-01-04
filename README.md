@@ -64,6 +64,23 @@ dict containing the following items:
   authenticating project.
 - `state`: Optional state of the router, default is `present`.
 
+
+List of security groups to create. Each item should be a dict containing the
+following items:
+- `name`: Name of the security group.
+- `description`: Optional description of the security group.
+- `state`: Optional state of the security group, default is `present`.
+- `rules`: Optional list of rules to add to the security group. Each item
+  should be a dict containing the following items:
+  - `direction`: Optional direction of the rule, default is `ingress`.
+  - `ethertype`: Optional Ethertype of the rule, default is `IPv4`
+  - `port_range_min`: Optional starting port.
+  - `port_range_max`: Optional ending port.
+  - `protocol`: Optional IP protocol of the rule.
+  - `remote_group`: Optional name or ID of the security group to link.
+  - `remote_ip_prefix`: Optional source IP address prefix in CIDR notation.
+  - `state`: Optional state of the rule, default is `present`.
+
 Dependencies
 ------------
 
@@ -109,6 +126,10 @@ different gateway.
               interfaces:
                 - subnet1
               network: net1
+          os_networks_security_groups:
+            - name: secgroup1
+              rules:
+                - protocol: icmp
 
 Author Information
 ------------------
