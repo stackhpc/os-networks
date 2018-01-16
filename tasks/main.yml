@@ -62,6 +62,38 @@
   environment:
     OS_IDENTITY_API_VERSION: 3
 
+- name: Ensure security groups are registered with neutron
+  os_security_group:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    name: "{{ item.name }}"
+    description: "{{ item.description | default(omit) }}"
+    project: "{{ item.project | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+  with_items: "{{ os_networks_security_groups }}"
+  environment:
+    OS_IDENTITY_API_VERSION: 3
+
+- name: Ensure security group rules are registered with neutron
+  os_security_group_rule:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    direction: "{{ item.1.direction | default(omit) }}"
+    ethertype: "{{ item.1.ethertype | default(omit) }}"
+    port_range_min: "{{ item.1.port_range_min | default(omit) }}"
+    port_range_max: "{{ item.1.port_range_max | default(omit) }}"
+    project: "{{ item.0.project | default(omit) }}"
+    protocol: "{{ item.1.protocol | default(omit) }}"
+    remote_group: "{{ item.1.remote_group | default(omit) }}"
+    remote_ip_prefix: "{{ item.1.remote_ip_prefix | default(omit) }}"
+    security_group: "{{ item.0.name }}"
+    state: "{{ item.1.state | default(omit) }}"
+  with_subelements:
+    - "{{ os_networks_security_groups }}"
+    - rules
+  environment:
+    OS_IDENTITY_API_VERSION: 3
+
 # This variable is unset before we set it, and it does not appear to be
 # possible to unset a variable in Ansible.
 - name: Set a fact to reset the Ansible python interpreter
