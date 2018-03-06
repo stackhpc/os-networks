@@ -65,8 +65,8 @@ dict containing the following items:
 - `state`: Optional state of the router, default is `present`.
 
 
-List of security groups to create. Each item should be a dict containing the
-following items:
+`os_networks_security_groups`: List of security groups to create.
+Each item should be a dict containing the following items:
 - `name`: Name of the security group.
 - `description`: Optional description of the security group.
 - `project`: Optional project in which to register the security group.
