@@ -39,6 +39,7 @@ dict containing the following items:
    - `cidr`: CIDR representation of the neutron subnet's IP network.
    - `dns_nameservers`: A list of DNS nameservers for the subnet.
    - `gateway_ip`: IP address of the neutron subnet's gateway.
+   - `enable_dhcp`: Whether to enable DHCP on the subnet.
    - `allocation_pool_start`: Start of the neutron subnet's IP allocation
      pool.
    - `allocation_pool_end`: End of the neutron subnet's IP allocation pool.
