@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: os-networks
+  #role_name: os_networks
   author: Mark Goddard
   description: >
     Role to register networks, subnets and routers in OpenStack
