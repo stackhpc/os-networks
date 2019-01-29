@@ -22,8 +22,7 @@
     project: "{{ item.project | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
   with_items: "{{ os_networks }}"
-  environment:
-    OS_IDENTITY_API_VERSION: 3
+  environment: "{{ os_networks_environment }}"
 
 - name: Ensure subnet is registered with neutron
   os_subnet:
@@ -47,8 +46,7 @@
   with_subelements:
     - "{{ os_networks }}"
     - subnets
-  environment:
-    OS_IDENTITY_API_VERSION: 3
+  environment: "{{ os_networks_environment }}"
 
 - name: Ensure router is registered with neutron
   os_router:
@@ -60,8 +58,7 @@
     project: "{{ item.project | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
   with_items: "{{ os_networks_routers }}"
-  environment:
-    OS_IDENTITY_API_VERSION: 3
+  environment: "{{ os_networks_environment }}"
 
 - name: Ensure security groups are registered with neutron
   os_security_group:
@@ -72,8 +69,7 @@
     project: "{{ item.project | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
   with_items: "{{ os_networks_security_groups }}"
-  environment:
-    OS_IDENTITY_API_VERSION: 3
+  environment: "{{ os_networks_environment }}"
 
 - name: Ensure security group rules are registered with neutron
   os_security_group_rule:
@@ -92,8 +88,7 @@
   with_subelements:
     - "{{ os_networks_security_groups }}"
     - rules
-  environment:
-    OS_IDENTITY_API_VERSION: 3
+  environment: "{{ os_networks_environment }}"
 
 # This variable is unset before we set it, and it does not appear to be
 # possible to unset a variable in Ansible.
