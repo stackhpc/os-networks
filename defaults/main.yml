@@ -12,6 +12,7 @@ os_networks_auth: {}
 
 # OpenStack environment variables to pass to the 'os_network' Ansible module.
 os_networks_environment:
+  OS_CACERT: "{{ lookup('env', 'OS_CACERT') }}"
   OS_IDENTITY_API_VERSION: 3
 
 # List of networks to create. Each item should be a dict containing the
