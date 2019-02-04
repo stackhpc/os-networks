@@ -22,6 +22,8 @@ compatible with the `auth` argument of `os_*` Ansible modules.
 
 `os_networks_cacert` is an optional path to a CA certificate bundle.
 
+`os_networks_cloud` is an optional name of a cloud in `clouds.yaml`.
+
 `os_networks` is a list of networks to register. Each item should be a
 dict containing the following items:
 
