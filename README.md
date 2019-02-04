@@ -56,6 +56,8 @@ dict containing the following items:
    - `ip_version`: Optional IP version for the subnet.
    - `ipv6_address_mode`: Optional IPv6 address mode for the subnet.
    - `ipv6_ra_mode`: Optional IPv6 router advertisement mode for the subnet.
+   - `use_default_subnetpool`: Optional boolean, whether to use the default
+     subnet pool for the IP version.
    - `project`: Optionally create this subnet for a project other than the
      authenticating project.
    - `state`: Optional state of the subnet, default is `present`.

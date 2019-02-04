@@ -35,7 +35,7 @@
     cloud: "{{ os_networks_cloud | default(omit) }}"
     name: "{{ item.1.name }}"
     network_name: "{{ item.0.name }}"
-    cidr: "{{ item.1.cidr }}"
+    cidr: "{{ item.1.cidr | default(omit) }}"
     dns_nameservers: "{{ item.1.dns_nameservers | default(omit) }}"
     enable_dhcp: "{{ item.1.enable_dhcp | default(omit) }}"
     gateway_ip: "{{ item.1.gateway_ip | default(omit) }}"
@@ -48,6 +48,7 @@
     ip_version: "{{ item.1.ip_version | default(omit) }}"
     ipv6_address_mode: "{{ item.1.ipv6_address_mode | default(omit) }}"
     ipv6_ra_mode: "{{ item.1.ipv6_ra_mode | default(omit) }}"
+    use_default_subnetpool: "{{ item.1.use_default_subnetpool | default(omit) }}"
     project: "{{ item.1.project | default(omit) }}"
     state: "{{ item.1.state | default(omit) }}"
   with_subelements:
