@@ -9,6 +9,20 @@
   set_fact:
     ansible_python_interpreter: "{{ os_networks_venv }}/bin/python"
 
+- name: Ensure absent router is removed from neutron
+  os_router:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    cacert: "{{ os_networks_cacert | default(omit) }}"
+    cloud: "{{ os_networks_cloud | default(omit) }}"
+    name: "{{ item.name }}"
+    project: "{{ item.project | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+  with_items: "{{ os_networks_routers }}"
+  when: item.state | default == 'absent'
+  environment:
+    OS_IDENTITY_API_VERSION: 3
+
 - name: Ensure network is registered with neutron
   os_network:
     auth_type: "{{ os_networks_auth_type }}"
@@ -69,6 +83,7 @@
     project: "{{ item.project | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
   with_items: "{{ os_networks_routers }}"
+  when: item.state | default('present') == 'present'
   environment:
     OS_IDENTITY_API_VERSION: 3
 
