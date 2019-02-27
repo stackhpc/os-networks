@@ -22,6 +22,8 @@ compatible with the `auth` argument of `os_*` Ansible modules.
 
 `os_networks_cacert` is an optional path to a CA certificate bundle.
 
+`os_networks_cloud` is an optional name of a cloud in `clouds.yaml`.
+
 `os_networks` is a list of networks to register. Each item should be a
 dict containing the following items:
 
@@ -41,6 +43,8 @@ dict containing the following items:
    - `cidr`: CIDR representation of the neutron subnet's IP network.
    - `dns_nameservers`: A list of DNS nameservers for the subnet.
    - `gateway_ip`: IP address of the neutron subnet's gateway.
+   - `no_gateway_ip`: Optional boolean, whether to omit a gateway IP. If unset,
+     this will be `true` if `gateway_ip` is specified, and `false` otherwise.
    - `enable_dhcp`: Whether to enable DHCP on the subnet.
    - `allocation_pool_start`: Start of the neutron subnet's IP allocation
      pool.
@@ -52,6 +56,8 @@ dict containing the following items:
    - `ip_version`: Optional IP version for the subnet.
    - `ipv6_address_mode`: Optional IPv6 address mode for the subnet.
    - `ipv6_ra_mode`: Optional IPv6 router advertisement mode for the subnet.
+   - `use_default_subnetpool`: Optional boolean, whether to use the default
+     subnet pool for the IP version.
    - `project`: Optionally create this subnet for a project other than the
      authenticating project.
    - `state`: Optional state of the subnet, default is `present`.
