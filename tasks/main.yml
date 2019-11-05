@@ -13,6 +13,7 @@
   os_router:
     auth_type: "{{ os_networks_auth_type }}"
     auth: "{{ os_networks_auth }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
     cacert: "{{ os_networks_cacert | default(omit) }}"
     cloud: "{{ os_networks_cloud | default(omit) }}"
     name: "{{ item.name }}"
@@ -27,6 +28,7 @@
   os_network:
     auth_type: "{{ os_networks_auth_type }}"
     auth: "{{ os_networks_auth }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
     cacert: "{{ os_networks_cacert | default(omit) }}"
     cloud: "{{ os_networks_cloud | default(omit) }}"
     name: "{{ item.name }}"
@@ -45,6 +47,7 @@
   os_subnet:
     auth_type: "{{ os_networks_auth_type }}"
     auth: "{{ os_networks_auth }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
     cacert: "{{ os_networks_cacert | default(omit) }}"
     cloud: "{{ os_networks_cloud | default(omit) }}"
     name: "{{ item.1.name }}"
@@ -74,6 +77,7 @@
 - name: Ensure router is registered with neutron
   os_router:
     auth_type: "{{ os_networks_auth_type }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
     auth: "{{ os_networks_auth }}"
     cacert: "{{ os_networks_cacert | default(omit) }}"
     cloud: "{{ os_networks_cloud | default(omit) }}"
@@ -90,6 +94,7 @@
 - name: Ensure security groups are registered with neutron
   os_security_group:
     auth_type: "{{ os_networks_auth_type }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
     auth: "{{ os_networks_auth }}"
     cacert: "{{ os_networks_cacert | default(omit) }}"
     cloud: "{{ os_networks_cloud | default(omit) }}"
@@ -104,6 +109,7 @@
 - name: Ensure security group rules are registered with neutron
   os_security_group_rule:
     auth_type: "{{ os_networks_auth_type }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
     auth: "{{ os_networks_auth }}"
     cacert: "{{ os_networks_cacert | default(omit) }}"
     cloud: "{{ os_networks_cloud | default(omit) }}"
