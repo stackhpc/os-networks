@@ -6,13 +6,13 @@ os_networks_venv:
 # auth_type argument.
 os_networks_auth_type:
 
-# Endpoint URL type to fetch from the service catalog. Maybe be one of:
-# public, admin, or internal.
-os_networks_interface:
-
 # Authentication parameters compatible with the 'os_network' Ansible module's
 # auth argument.
 os_networks_auth: {}
+
+# Endpoint URL type to fetch from the service catalog. Maybe be one of:
+# public, admin, or internal.
+os_networks_interface:
 
 # List of networks to create. Each item should be a dict containing the
 # following items:
