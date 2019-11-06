@@ -10,6 +10,10 @@ os_networks_auth_type:
 # auth argument.
 os_networks_auth: {}
 
+# Endpoint URL type to fetch from the service catalog. Maybe be one of:
+# public, admin, or internal.
+os_networks_interface:
+
 # List of networks to create. Each item should be a dict containing the
 # following items:
 # - 'name': Name of the neutron network.
