@@ -40,6 +40,14 @@ dict containing the following items:
 - `project`: Optionally create this network for a project other than the
   authenticating project.
 - `state`: Optional state of the network, default is `present`.
+- `mtu`: The maximum transmission unit (MTU) value to address fragmentation.
+  Network will use OpenStack defaults if this option is not provided.
+  Requires ansible >= 2.9.
+- `port_security_enabled`: Whether port security is enabled on the network
+  or not. Network will use OpenStack defaults if this option is not utilised.
+  Boolean, true to enable, false otherwise. Requires ansible >= 2.8.
+- `dns_domain`: The DNS domain value to set. Network will use Openstack
+  defaults if this option is not provided. Requires ansible >= 2.9.
 - `subnets`: A list of subnets to create in this network. Each item should
    be a dict containing the following items:
    - `name`: Name of the neutron subnet.
