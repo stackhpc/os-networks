@@ -34,7 +34,7 @@
     name: "{{ item.name }}"
     provider_network_type: "{{ item.provider_network_type | default(omit) }}"
     provider_physical_network: "{{ item.provider_physical_network | default(omit) }}"
-    provider_segmentation_id: "{{ item.provider_segmentation_id | default(omit) }}"
+    provider_segmentation_id: "{{ item.provider_segmentation_id | default(omit, true) }}"
     shared: "{{ item.shared | default(omit) }}"
     external: "{{ item.external | default(omit) }}"
     project: "{{ item.project | default(omit) }}"
