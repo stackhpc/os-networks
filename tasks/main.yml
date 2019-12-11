@@ -40,8 +40,8 @@
     project: "{{ item.project | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
     mtu: "{{ item.mtu | default(omit) }}"
-    dns_domain: "{{ item.dns_domain: | default(omit) }}"
-    port_security_enabled: "{{ item.port_security_enabled: | default(omit) }}"
+    dns_domain: "{{ item.dns_domain | default(omit) }}"
+    port_security_enabled: "{{ item.port_security_enabled | default(omit) }}"
   with_items: "{{ os_networks }}"
   environment:
     OS_IDENTITY_API_VERSION: 3
