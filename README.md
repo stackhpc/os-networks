@@ -105,7 +105,7 @@ Each item should be a dict containing the following items:
 Dependencies
 ------------
 
-This role depends on the `stackhpc.os-shade` role.
+This role depends on the `stackhpc.os-openstacksdk` role.
 
 Example Playbook
 ----------------
