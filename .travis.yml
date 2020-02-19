@@ -25,7 +25,7 @@ install:
   - ln -s $(pwd) ../stackhpc.os-networks
 
   # Install role dependencies
-  - ansible-galaxy install -p .. stackhpc.os-shade
+  - ansible-galaxy install -p .. stackhpc.os_openstacksdk
 
 script:
   # Run Ansible lint against the role
