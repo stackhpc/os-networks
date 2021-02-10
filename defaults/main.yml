@@ -82,3 +82,10 @@ os_networks_routers: []
 #   - 'remote_ip_prefix': Optional source IP address prefix in CIDR notation.
 #   - 'state': Optional state of the rule, default is 'present'.
 os_networks_security_groups: []
+
+# Use Train upper constraints when running with Python 2, to avoid
+# incompatibility with newer OSC releases.
+#
+# Use Victoria upper constraints otherwise, due to a bug in openstacksdk 0.53:
+# https://storyboard.openstack.org/#!/story/2008577
+os_networks_upper_constraints_file: "https://releases.openstack.org/constraints/upper/{% if ansible_python.version.major == '2' %}train{% else %}victoria{% endif %}"
