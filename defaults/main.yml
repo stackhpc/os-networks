@@ -88,4 +88,4 @@ os_networks_security_groups: []
 #
 # Use Victoria upper constraints otherwise, due to a bug in openstacksdk 0.53:
 # https://storyboard.openstack.org/#!/story/2008577
-os_networks_upper_constraints_file: "https://releases.openstack.org/constraints/upper/{% if ansible_python.version.major == '2' %}train{% else %}victoria{% endif %}"
+os_networks_upper_constraints_file: "https://releases.openstack.org/constraints/upper/{% if ansible_python.version.major == 2 %}train{% else %}victoria{% endif %}"
