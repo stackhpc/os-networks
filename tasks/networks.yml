@@ -1,0 +1,111 @@
+---
+- name: Ensure absent router is removed from neutron
+  os_router:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    cacert: "{{ os_networks_cacert | default(omit) }}"
+    cloud: "{{ os_networks_cloud | default(omit) }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
+    name: "{{ item.name }}"
+    project: "{{ item.project | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+  with_items: "{{ os_networks_routers }}"
+  when: item.state | default == 'absent'
+
+- name: Ensure network is registered with neutron
+  os_network:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    cacert: "{{ os_networks_cacert | default(omit) }}"
+    cloud: "{{ os_networks_cloud | default(omit) }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
+    name: "{{ item.name }}"
+    provider_network_type: "{{ item.provider_network_type | default(omit) }}"
+    provider_physical_network: "{{ item.provider_physical_network | default(omit) }}"
+    provider_segmentation_id: "{{ item.provider_segmentation_id | default(omit, true) }}"
+    shared: "{{ item.shared | default(omit) }}"
+    external: "{{ item.external | default(omit) }}"
+    project: "{{ item.project | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    mtu: "{{ item.mtu | default(omit) }}"
+    dns_domain: "{{ item.dns_domain | default(omit) }}"
+    port_security_enabled: "{{ item.port_security_enabled | default(omit) }}"
+  with_items: "{{ os_networks }}"
+
+- name: Ensure subnet is registered with neutron
+  os_subnet:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    cacert: "{{ os_networks_cacert | default(omit) }}"
+    cloud: "{{ os_networks_cloud | default(omit) }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
+    name: "{{ item.1.name }}"
+    network_name: "{{ item.0.name }}"
+    cidr: "{{ item.1.cidr | default(omit) }}"
+    dns_nameservers: "{{ item.1.dns_nameservers | default(omit) }}"
+    enable_dhcp: "{{ item.1.enable_dhcp | default(omit) }}"
+    gateway_ip: "{{ item.1.gateway_ip | default(omit) }}"
+    no_gateway_ip: >-
+      {{ item.1.no_gateway_ip |
+         default(item.1.gateway_ip | default | ternary(omit, True)) }}
+    allocation_pool_start: "{{ item.1.allocation_pool_start | default(omit) }}"
+    allocation_pool_end: "{{ item.1.allocation_pool_end | default(omit) }}"
+    host_routes: "{{ item.1.host_routes | default(omit) }}"
+    ip_version: "{{ item.1.ip_version | default(omit) }}"
+    ipv6_address_mode: "{{ item.1.ipv6_address_mode | default(omit) }}"
+    ipv6_ra_mode: "{{ item.1.ipv6_ra_mode | default(omit) }}"
+    use_default_subnetpool: "{{ item.1.use_default_subnetpool | default(omit) }}"
+    project: "{{ item.1.project | default(omit) }}"
+    state: "{{ item.1.state | default(omit) }}"
+  with_subelements:
+    - "{{ os_networks }}"
+    - subnets
+
+- name: Ensure router is registered with neutron
+  os_router:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    cacert: "{{ os_networks_cacert | default(omit) }}"
+    cloud: "{{ os_networks_cloud | default(omit) }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
+    name: "{{ item.name }}"
+    interfaces: "{{ item.interfaces | default(omit) }}"
+    network: "{{ item.network | default(omit) }}"
+    project: "{{ item.project | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+  with_items: "{{ os_networks_routers }}"
+  when: item.state | default('present') == 'present'
+
+- name: Ensure security groups are registered with neutron
+  os_security_group:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    cacert: "{{ os_networks_cacert | default(omit) }}"
+    cloud: "{{ os_networks_cloud | default(omit) }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
+    name: "{{ item.name }}"
+    description: "{{ item.description | default(omit) }}"
+    project: "{{ item.project | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+  with_items: "{{ os_networks_security_groups }}"
+
+- name: Ensure security group rules are registered with neutron
+  os_security_group_rule:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    cacert: "{{ os_networks_cacert | default(omit) }}"
+    cloud: "{{ os_networks_cloud | default(omit) }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
+    direction: "{{ item.1.direction | default(omit) }}"
+    ethertype: "{{ item.1.ethertype | default(omit) }}"
+    port_range_min: "{{ item.1.port_range_min | default(omit) }}"
+    port_range_max: "{{ item.1.port_range_max | default(omit) }}"
+    project: "{{ item.0.project | default(omit) }}"
+    protocol: "{{ item.1.protocol | default(omit) }}"
+    remote_group: "{{ item.1.remote_group | default(omit) }}"
+    remote_ip_prefix: "{{ item.1.remote_ip_prefix | default(omit) }}"
+    security_group: "{{ item.0.name }}"
+    state: "{{ item.1.state | default(omit) }}"
+  with_subelements:
+    - "{{ os_networks_security_groups }}"
+    - rules
