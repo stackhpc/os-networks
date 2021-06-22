@@ -71,6 +71,7 @@
     name: "{{ item.name }}"
     interfaces: "{{ item.interfaces | default(omit) }}"
     network: "{{ item.network | default(omit) }}"
+    external_fixed_ips: "{{ item.external_fixed_ips | default(omit) }}"
     project: "{{ item.project | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
   with_items: "{{ os_networks_routers }}"
