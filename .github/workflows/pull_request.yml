@@ -17,8 +17,8 @@ jobs:
         ansible:
           # Test against 2.9, 2.10 with collections and 2.11 with collections
           - "<2.10"
-          - "<3"
           - "<4"
+          - "<5"
 
     steps:
 
