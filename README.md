@@ -53,6 +53,8 @@ dict containing the following items:
    - `name`: Name of the neutron subnet.
    - `cidr`: CIDR representation of the neutron subnet's IP network.
    - `dns_nameservers`: A list of DNS nameservers for the subnet.
+   - `extra_specs`: Optional Dictionary with extra key/value pairs
+     passed to the API. Requires ansible >= 2.7.
    - `gateway_ip`: IP address of the neutron subnet's gateway.
    - `no_gateway_ip`: Optional boolean, whether to omit a gateway IP. If unset,
      this will be `true` if `gateway_ip` is specified, and `false` otherwise.
