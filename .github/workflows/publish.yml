@@ -15,8 +15,7 @@ jobs:
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE, so it's accessible to the job
       - uses: actions/checkout@v2
-
-      - name: Build and publish a collection
-        uses: artis3n/ansible_galaxy_collection@v2
+      - name: galaxy
+        uses: robertdebock/galaxy-action@1.2.0
         with:
-          api_key: '${{ secrets.GALAXY_API_KEY }}'
+          galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
