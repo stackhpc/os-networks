@@ -15,6 +15,6 @@ jobs:
       # Checks-out the repository under $GITHUB_WORKSPACE, so it's accessible to the job
       - uses: actions/checkout@v2
       - name: galaxy
-        uses: robertdebock/galaxy-action@1.2.0
+        uses: robertdebock/galaxy-action@2da9916b23b62d328af9c8814ad5973d68817a7e
         with:
           galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
