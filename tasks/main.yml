@@ -1,5 +1,6 @@
 ---
-- import_tasks: networks.yml
+- name: Import networks.yml
+  ansible.builtin.import_tasks: networks.yml
   vars:
     ansible_python_interpreter: "{{ os_networks_venv }}/bin/python"
   environment:
