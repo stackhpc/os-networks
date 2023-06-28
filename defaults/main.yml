@@ -88,6 +88,19 @@ os_networks_routers: []
 #   - 'state': Optional state of the rule, default is 'present'.
 os_networks_security_groups: []
 
+# Role-Based Access Control (RBAC)
+# List of role-based access control shares for named networks and projects.
+# See https://docs.openstack.org/neutron/latest/admin/config-rbac.html
+# for details. Each entry in the list is a dictionary containing the
+# following items:
+# - `network`: The name of the network to share. This netowrk is normally
+#   owned by the `admin` project and not `shared` or `external`.
+# - `access`: The mode of sharing with the target project(s). Valid options
+#   are `access_as_external` and `access_as_shared`
+# - `projects`: A list of project names for sharing the named network
+#   in the designated way.
+os_networks_rbac: []
+
 # Use Train upper constraints when running with Python 2, to avoid
 # incompatibility with newer OSC releases.
 #

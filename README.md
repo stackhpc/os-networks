@@ -107,6 +107,21 @@ Each item should be a dict containing the following items:
   - `remote_ip_prefix`: Optional source IP address prefix in CIDR notation.
   - `state`: Optional state of the rule, default is `present`.
 
+`os_networks_rbac` is a list of role-based access control
+shares for named networks and projects.  See the [Neutron RBAC admin
+guide](https://docs.openstack.org/neutron/latest/admin/config-rbac.html#sharing-a-network-with-specific-projects)
+for details. Each entry in the list is a dictionary containing the
+following items:
+
+- `network`: The name of the network to share. This netowrk is normally
+  owned by the `admin` project and not `shared` or `external`.
+- `access`: The mode of sharing with the target project(s). Valid options
+  are `access_as_external` and `access_as_shared`
+- `projects`: A list of project names for sharing the named network
+  in the designated way.
+
+*NOTE*: RBAC assignments cannot be modified after they are created.
+
 Dependencies
 ------------
 
