@@ -113,7 +113,7 @@ guide](https://docs.openstack.org/neutron/latest/admin/config-rbac.html#sharing-
 for details. Each entry in the list is a dictionary containing the
 following items:
 
-- `network`: The name of the network to share. This netowrk is normally
+- `network`: The name of the network to share. This network is normally
   owned by the `admin` project and not `shared` or `external`.
 - `access`: The mode of sharing with the target project(s). Valid options
   are `access_as_external` and `access_as_shared`
