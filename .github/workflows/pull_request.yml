@@ -42,7 +42,7 @@ jobs:
 
       - name: Installing dependencies
         run: |
-          pip install "ansible-lint[community]"
+          pip install "ansible-lint[community]==5.*"
           printf '[defaults]\nroles_path=../' >ansible.cfg
           ln -s $(pwd) ../stackhpc.os-networks
           ansible-galaxy role install -p .. stackhpc.os_openstacksdk
