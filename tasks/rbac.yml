@@ -1,0 +1,71 @@
+---
+
+# openstack.cloud.neutron_rbac_policy requires IDs for networks and projects.
+# We need to do some manipulation to extract the relevant data.
+
+# We assume all networks being shared by RBAC are owned by the admin project.
+- name: Gather details on admin networks for RBAC assignment
+  openstack.cloud.networks_info:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    cacert: "{{ os_networks_cacert | default(omit) }}"
+    cloud: "{{ os_networks_cloud | default(omit) }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
+  register: os_networks_admin_networks
+
+- name: Frobnicate to inject project ID
+  set_fact:
+    os_networks_rbac_with_id: "{{ os_networks_rbac_with_id + [ item | combine( {'network_id': os_networks_admin_networks.openstack_networks | selectattr('name', 'equalto', item['network'] ) | map(attribute='id') | first } ) ] }}"
+  with_items: "{{ os_networks_rbac }}"
+  vars:
+    os_networks_rbac_with_id: []
+
+# Retrieve admin project id
+# For some reason this project must be retrieved explicitly
+- name: Lookup OpenStack admin project data
+  openstack.cloud.project_info:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    cacert: "{{ os_networks_cacert | default(omit) }}"
+    cloud: "{{ os_networks_cloud | default(omit) }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
+    name: "admin"
+  register: admin_project_data
+
+- name: Set admin project ID
+  set_fact:
+    admin_project_id: "{{ admin_project_data.openstack_projects | map(attribute='id') | first }}"
+
+# Retrieve project IDs of other OpenStack projects
+- name: Lookup OpenStack project IDs
+  openstack.cloud.project_info:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    cacert: "{{ os_networks_cacert | default(omit) }}"
+    cloud: "{{ os_networks_cloud | default(omit) }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
+  register: project_data
+
+# Construct the exploded list pairing projects and RBAC assignments
+- name: Expand the project list for each RBAC policy
+  set_fact:
+    os_networks_rbac_expanded: "{{ os_networks_rbac_expanded + [item] | product(item['projects']) }}"
+  with_items: "{{ os_networks_rbac_with_id }}"
+  vars:
+    os_networks_rbac_expanded: []
+
+# Apply RBAC policies
+- name: Ensure neutron RBAC policies are implemented
+  openstack.cloud.neutron_rbac_policy:
+    auth_type: "{{ os_networks_auth_type }}"
+    auth: "{{ os_networks_auth }}"
+    cacert: "{{ os_networks_cacert | default(omit) }}"
+    cloud: "{{ os_networks_cloud | default(omit) }}"
+    interface: "{{ os_networks_interface | default(omit, true) }}"
+    action: "{{ item[0].access }}"
+    object_id: "{{ item[0].network_id }}"
+    object_type: "network"
+    project_id: "{{ admin_project_id }}"
+    target_project_id: "{{ project_data.openstack_projects | selectattr('name', 'equalto', item[1]) | map(attribute='id') | first }}"
+  loop: "{{ os_networks_rbac_expanded }}"
+
