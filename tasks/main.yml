@@ -7,7 +7,7 @@
     OS_IDENTITY_API_VERSION: 3
 
 - name: Import rbac.yml
-  ansible.builtin.import_tasks: rbac.yml
+  ansible.builtin.include_tasks: rbac.yml
   when: os_networks_rbac | length > 0
   vars:
     ansible_python_interpreter: "{{ os_networks_venv }}/bin/python"
