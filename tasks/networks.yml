@@ -111,3 +111,7 @@
   with_subelements:
     - "{{ os_networks_security_groups }}"
     - rules
+
+- name: Include rbac.yml
+  ansible.builtin.include_tasks: rbac.yml
+  when: os_networks_rbac | length > 0
