@@ -1,0 +1,4 @@
+---
+skip_list:
+  # Computed fully qualified role name of role-os-networks does not follow current galaxy requirements.
+  - role-name
