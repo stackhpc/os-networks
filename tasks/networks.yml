@@ -89,6 +89,7 @@
     description: "{{ item.description | default(omit) }}"
     project: "{{ item.project | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
+    stateful: "{{ item.stateful | default(omit) }}"
   with_items: "{{ os_networks_security_groups }}"
 
 - name: Ensure security group rules are registered with neutron
