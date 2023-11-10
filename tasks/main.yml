@@ -4,4 +4,4 @@
   vars:
     ansible_python_interpreter: "{{ os_networks_venv }}/bin/python"
   environment:
-    OS_IDENTITY_API_VERSION: 3
+    OS_IDENTITY_API_VERSION: "3"
