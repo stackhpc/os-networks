@@ -45,7 +45,7 @@
     dns_nameservers: "{{ item.1.dns_nameservers | default(omit) }}"
     enable_dhcp: "{{ item.1.enable_dhcp | default(omit) }}"
     extra_specs: "{{ item.1.extra_specs | default(omit) }}"
-    gateway_ip: "{{ item.1.gateway_ip | default(omit) }}"
+    gateway_ip: "{{ item.1.gateway_ip | default(omit, true) }}"
     no_gateway_ip: >-
       {{ item.1.no_gateway_ip |
          default(item.1.gateway_ip | default | ternary(omit, True)) }}
