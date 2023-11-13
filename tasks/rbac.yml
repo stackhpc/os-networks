@@ -14,8 +14,9 @@
   register: os_networks_admin_networks
 
 - name: Frobnicate to inject project ID
-  set_fact:
-    os_networks_rbac_with_id: "{{ os_networks_rbac_with_id + [ item | combine( {'network_id': os_networks_admin_networks.openstack_networks | selectattr('name', 'equalto', item['network'] ) | map(attribute='id') | first } ) ] }}"
+  ansible.builtin.set_fact:
+    os_networks_rbac_with_id: "{{ os_networks_rbac_with_id + [item | combine({'network_id': os_networks_admin_networks.openstack_networks | selectattr('name', 'equalto',
+      item['network']) | map(attribute='id') | first})] }}"
   with_items: "{{ os_networks_rbac }}"
   vars:
     os_networks_rbac_with_id: []
@@ -29,11 +30,11 @@
     cacert: "{{ os_networks_cacert | default(omit) }}"
     cloud: "{{ os_networks_cloud | default(omit) }}"
     interface: "{{ os_networks_interface | default(omit, true) }}"
-    name: "admin"
+    name: admin
   register: admin_project_data
 
 - name: Set admin project ID
-  set_fact:
+  ansible.builtin.set_fact:
     admin_project_id: "{{ admin_project_data.openstack_projects | map(attribute='id') | first }}"
 
 # Retrieve project IDs of other OpenStack projects
@@ -48,7 +49,7 @@
 
 # Construct the exploded list pairing projects and RBAC assignments
 - name: Expand the project list for each RBAC policy
-  set_fact:
+  ansible.builtin.set_fact:
     os_networks_rbac_expanded: "{{ os_networks_rbac_expanded + [item] | product(item['projects']) }}"
   with_items: "{{ os_networks_rbac_with_id }}"
   vars:
@@ -64,8 +65,7 @@
     interface: "{{ os_networks_interface | default(omit, true) }}"
     action: "{{ item[0].access }}"
     object_id: "{{ item[0].network_id }}"
-    object_type: "network"
+    object_type: network
     project_id: "{{ admin_project_id }}"
     target_project_id: "{{ project_data.openstack_projects | selectattr('name', 'equalto', item[1]) | map(attribute='id') | first }}"
   loop: "{{ os_networks_rbac_expanded }}"
-
