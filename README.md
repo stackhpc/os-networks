@@ -1,3 +1,9 @@
+# NOTE:
+
+This repository is no longer maintained - role has been moved to [Ansible
+collection](https://docs.ansible.com/ansible/latest/collections_guide/index.html)
+now ➡️ https://github.com/stackhpc/ansible-collection-openstack
+
 OpenStack Networks
 ==================
 
@@ -83,7 +89,7 @@ dict containing the following items:
   internal interface.
 - `network`: Unique name or ID of the external gateway network.
 - `external_fixed_ips`: Optional list of IP address parameters for the
-  external gateway network. Each is a dictionary with the subnet name or 
+  external gateway network. Each is a dictionary with the subnet name or
   subnet ID and the IP address to assign on the subnet.
 - `project`: Optionally create this router for a project other than the
   authenticating project.
